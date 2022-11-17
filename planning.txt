@@ -1,0 +1,37 @@
+Planning:
+    1. Game will have four arithmetic options, add/subtract/multiply/divide
+    2. User can choose difficulty level between 1-5, higher difficulty = higher points per correct answer
+        a. Higher difficulty = larger numbers to evaluate in equations
+    3. No deductions for wrong answers, only points for right answers
+    4. Games will last 60 seconds, do as many as you can in 60s
+    5. At the end, user is displayed their score, as well as:
+        a. Total questions displayed
+        b. Total questions answered correctly
+        c. Total questions answered incorrectly
+        d. List of all equations answered incorrectly
+    7. Upon running program, user will be prompted to enter their unique name.
+        a. If they have played on the machine before, their save data will be loaded based on their name
+            i. If so, a message will display welcoming the user back
+        b. If they have not played before, a new entry in the save file will be made with their name
+            i. If so, a message will display welcoming the user for the first time.
+    8. In the main menu, user will have options to:
+        a. Begin a new game, this menu will have:
+            i. (1) Addition
+            ii (2) Subtraction
+            iii (3) Multiplication
+            iv (4) Division
+        b. View best scores from current session
+            i. If no score is recorded for a particular operation, will display "None"
+        c. Save data from current session to save file
+            i. This will save the user's best scores to their name in the save file
+        d. Exit program
+            i. If the user has not saved their data from the current session, a
+            scary-looking warning message will appear warning that their scores
+            have not been saved.
+            ii. Otherwise, program will exit
+    9. Once user chooses an operation for the next round, play will begin as follows:
+        a. They will be prompted for their difficulty level (1-5)
+        b. An instruction will display in all-caps: "ANSWER AS MANY AS YOU CAN IN 60s!"
+        c. A title will display at the top: "{operation}, LEVEL {level}"
+        d. A countdown will begin: "Beginning in 5"
+        e. Equations will begin to be displayed.

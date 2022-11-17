@@ -1,6 +1,7 @@
 import csv
 
 # This file will be used to store/access user save data to a CSV file
+#
 # gamesavedata.csv will not be a file on github, will automatically generate when user runs
 # the script on their machine
 
@@ -35,12 +36,21 @@ def WriteToSaveFile(data):
 
 # will read contents of save file to a dictionary to use
 
-with open('gamesavedata.csv') as saveFile:
-    try:
-        csvReader = csv.reader(saveFile)
-        for row in csvReader:
-            print(row[0])
-    except IndexError:
-        pass
 
+
+def readFromSaveFile():
+    with open('gamesavedata.csv') as saveFile:
+        try:
+            csvReader = csv.reader(saveFile)
+            for row in csvReader:
+                print(row[1])
+        except IndexError:
+            pass
+
+
+readFromSaveFile()
+
+#saveData['name'] = 'John'
+
+#print(saveData)
 
