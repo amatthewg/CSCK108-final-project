@@ -1,3 +1,4 @@
+import time
 # Grouping of texts
 
 mainMenu = "Main Menu:\n" \
@@ -14,5 +15,17 @@ operationsMenu = "Choose the operation to play:\n" \
                  "(4) Division\n" \
                  "Enter number option: "
 
-difficultyLevel = "Input your difficulty level (1-5):"
+difficultyLevelPrompt = "Input your difficulty level (1-5):"
+
+def displayCountdown(operation, difficultyLevel):
+    print(f"Operation: {operation}, Level {difficultyLevel}")
+    time.sleep(1.5)
+    print("Answer as many as you can in 60 seconds!")
+    time.sleep(1.5)
+    i = 5
+    while i > 0:
+        print(f"Beginning in {i}...")
+        i -= 1
+        time.sleep(1)
+    print("Go!")
 
