@@ -35,3 +35,4 @@ Planning:
         c. A title will display at the top: "{operation}, LEVEL {level}"
         d. A countdown will begin: "Beginning in 5"
         e. Equations will begin to be displayed.
+        f. Time warnings will be displayed for 45 sec, 30 sec, 15 sec, 10 sec
