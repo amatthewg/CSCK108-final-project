@@ -24,33 +24,23 @@ with the more up-to-date data.
 
 So, just make a dedicated method to generate a dictionary from the data file.
 """
-
-
-
-
-
-# Header variable to be written into the save file
 header = ["name", "best_score_addition", "best_score_subtraction",
           "best_score_multiplication", "best_score_division"]
 
-# dictionary that will be loaded with save data from file
-saveData = {}
+dictionary = {}
 
-# generates file if it doesn't exist already
-def fileOnStartup():
+# startup logic for save file
+def startup():
+    # this portion generates save file if it doesn't already exist
     if os.path.isfile("gamesavedata.csv"):
-        print('File exists!')
+        print('DEBUG: File exists!')  # debug
     else:
-        with open('gamesavedata.csv', 'a') as file:
+        with open('gamesavedata.csv', 'a+') as file:
             csvWriter = csv.writer(file)
             csvWriter.writerow(header)
 
-
-
-
-# generates save data dictionary to be used by program
-def generateDictionary():
-    with open('gamesavedata.csv') as saveFile:
+    # this portion opens the save file and puts everything into the dictionary
+    with open('gamesavedata.csv', 'r') as saveFile:
         fileReader = csv.reader(saveFile, delimiter=',')
 
         firstRow = True
@@ -67,32 +57,41 @@ def generateDictionary():
             except IndexError:
                 continue
 
-            saveData[name] = {
-                "scoreAddition" : addScore,
-                "scoreSubtraction" : subtScore,
-                "scoreMultiplication" : multScore,
-                "scoreDivision" : divScore
+            dictionary[name] = {
+                "scoreAddition": addScore,
+                "scoreSubtraction": subtScore,
+                "scoreMultiplication": multScore,
+                "scoreDivision": divScore
             }
 
 
-# function to write to save file, takes list as input
-# for example: [name, score, score, score, score]
-# above will be written as a row to the csv
 def WriteToSaveFile(list):
-
     with open('gamesavedata.csv', 'w') as f:
         writer = csv.writer(f)
 
         writer.writerow(list)
-
-# method will be called at beginning of program to load save file
-def loadSaveFile():
-    generateDictionary()
+    startup()
 
 
-# these are called at program startup b/c this file is imported and executed in main.py
-fileOnStartup()
-loadSaveFile()
+def CheckIfNameInDictionary(name):
+    names = list(dictionary.keys())
+    try:
+        index = names.index(name)
+    except ValueError:
+        return False
+    return True
 
 
+def GenerateNewUser(name):
+    data = [name, "None", "None", "None", "None"]
+    WriteToSaveFile(data)
 
+def DeleteUser(name):
+    pass
+
+def GetUserData(name):
+    data = list(dictionary[name].values)
+    return data
+
+
+startup()
