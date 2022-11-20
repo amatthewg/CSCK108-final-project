@@ -10,8 +10,10 @@ def additionGame(difficultyLevel):
     # for lv 4, give nums between 100 and 500 to add, give 4 pt per correct ans
     # for lv 5, give nums between 500 and 1000, give 5 per ans
 
-
-
+    # put ready message here
+    print("Ready...")
+    time.sleep(1)
+    print("Go!")
 
 
     if difficultyLevel == 1:
@@ -22,15 +24,23 @@ def additionGame(difficultyLevel):
         startTime = int(startTime)
         endTime = startTime + 60
 
-        i = 60
+        warning45 = startTime + 15
+        warning30 = startTime + 30
+        warning15 = startTime + 45
+
+
+
         while int(time.time()) != endTime:
-            if i <= 45:
-                print(f"{i} seconds remaining...")
-            elif i <= 30:
-                print(f"{i} seconds remaining...")
-            elif i <= 15:
-                print(f"{i} seconds remaining...")
-            time.sleep(1)
+            if time.time() >= warning45 and displayed45 == False:
+                print("45 seconds remaining...")
+                displayed45 = True
+            elif time.time() >= warning30:
+                print("30 seconds remaining...")
+
+            elif time.time() >= warning15:
+                print("15 seconds remaining...")
+
+
 
             # placeholder: user input() line will go here, to get their answer
             userInput = input() #fixme this is broken now
@@ -41,7 +51,7 @@ def additionGame(difficultyLevel):
                 time.sleep(1.5)
             else:
                 pass # this will be where we increment questions displayed, etc
-            i -= 1
+
         print("FINISHED!")
         time.sleep(1.5)
         print(f"Total questions displayed: {numQuestionsDisplayed}")
