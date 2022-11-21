@@ -93,5 +93,8 @@ def GetUserData(name):
     data = list(dictionary[name].values)
     return data
 
+def ScoreHandling(name, operation, score):
+    pass
+
 
 startup()

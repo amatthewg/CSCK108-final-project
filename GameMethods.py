@@ -1,6 +1,8 @@
 import random
 import time
 import datetime
+
+
 # This file houses the dedicated methods to run each individual math game
 
 def additionGame(difficultyLevel):
@@ -11,65 +13,89 @@ def additionGame(difficultyLevel):
     # for lv 5, give nums between 500 and 1000, give 5 per ans
 
     # put ready message here
-    print("Ready...")
+    print(f"Addition Game, Level {difficultyLevel}, {difficultyLevel} points per correct answer")
+    time.sleep(2)
+    print("Starting in 5...")
     time.sleep(1)
-    print("Go!")
+    print("Starting in 4...")
+    time.sleep(1)
+    print("Starting in 3...")
+    time.sleep(1)
+    print("Starting in 2...")
+    time.sleep(1)
+    print("Starting in 1...")
+    time.sleep(1)
 
+    numQuestionsDisplayed = 0
+    numCorrectAnswers = 0
+    wrongAnswers = []
 
-    if difficultyLevel == 1:
-        numQuestionsDisplayed = 0
-        numCorrectAnswers = 0
+    startTime = time.time()
+    startTime = int(startTime)
+    endTime = startTime + 60
 
-        startTime = time.time()
-        startTime = int(startTime)
-        endTime = startTime + 60
+    warning45 = startTime + 15
+    warning30 = startTime + 30
+    warning15 = startTime + 45
 
-        warning45 = startTime + 15
-        warning30 = startTime + 30
-        warning15 = startTime + 45
+    displayed45 = False
+    displayed30 = False
+    displayed15 = False
 
+    while int(time.time()) <= endTime:
 
+        if time.time() >= warning45 and not displayed45:
+            print("45 seconds remaining...")
+            displayed45 = True
+        elif time.time() >= warning30 and not displayed30:
+            print("30 seconds remaining...")
+            displayed30 = True
 
-        while int(time.time()) != endTime:
-            if time.time() >= warning45 and displayed45 == False:
-                print("45 seconds remaining...")
-                displayed45 = True
-            elif time.time() >= warning30:
-                print("30 seconds remaining...")
+        elif time.time() >= warning15 and not displayed15:
+            print("15 seconds remaining...")
+            displayed15 = True
 
-            elif time.time() >= warning15:
-                print("15 seconds remaining...")
+        # placeholder: user input() line will go here, to get their answer
 
+        if difficultyLevel == 1:
+            firstNum = random.randint(0, 10)
+            secondNum = random.randint(0, 10)
 
+            equation = firstNum + secondNum
+            print(f"{firstNum} + {secondNum}", end='')
+            userAnswer = input()
 
-            # placeholder: user input() line will go here, to get their answer
-            userInput = input() #fixme this is broken now
-            # put timer has expired check after user input line
-            if int(time.time()) > endTime:
-                time.sleep(1.5) # adding in these sleep calls to make the outputs more readable for the user
-                print("Your final answer was rejected because the time already expired!")
-                time.sleep(1.5)
+            if userAnswer == equation:
+                numCorrectAnswers += 1
             else:
-                pass # this will be where we increment questions displayed, etc
+                sentence = f"{firstNum} + {secondNum} equals {equation}, not {userAnswer}"
+                wrongAnswers.append(sentence)
 
-        print("FINISHED!")
-        time.sleep(1.5)
-        print(f"Total questions displayed: {numQuestionsDisplayed}")
-        time.sleep(1.5)
-        print(f"Questions answered correctly: {numCorrectAnswers}")
-        time.sleep(1.5)
-        print(f"Total score: {numCorrectAnswers}") # score is the num of correct answers b/c points given is 1 per question for difficulty lvl 1
+        elif difficultyLevel == 2:
+            pass
+        elif difficultyLevel == 3:
+            pass
+        elif difficultyLevel == 4:
+            pass
+        elif difficultyLevel == 5:
+            pass
+        # put timer has expired check after user input line
 
+        if int(time.time()) > endTime:
+            time.sleep(1.5)  # adding in these sleep calls to make the outputs more readable for the user
+            print("Your final answer was rejected because the time already expired!")
+            time.sleep(1.5)
+        else:
+            numQuestionsDisplayed += 1
 
+    print("FINISHED!")
+    time.sleep(1.5)
+    print(f"Total questions displayed: {numQuestionsDisplayed}")
+    time.sleep(1.5)
+    print(f"Questions answered correctly: {numCorrectAnswers}")
+    time.sleep(1.5)
+    print(
+        f"Total score: {numCorrectAnswers}")  # score is the num of correct answers b/c points given is 1 per question for difficulty lvl 1
 
-
-    elif difficultyLevel == 2:
-        pass
-    elif difficultyLevel == 3:
-        pass
-    elif difficultyLevel == 4:
-        pass
-    elif difficultyLevel == 5:
-        pass
 
 additionGame(1)
