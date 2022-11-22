@@ -11,9 +11,48 @@ def mathGame(operation, difficultyLevel):
     # for lv 3, give nums between 25 and 100, give 3 pt per correct ans
     # for lv 4, give nums between 100 and 500 to add, give 4 pt per correct ans
     # for lv 5, give nums between 500 and 1000, give 5 per ans
-    operation = operation.upper()
+
+
+    if operation == 1:
+        finalOperation = "Addition"
+    elif operation == 2:
+        finalOperation = "Subtraction"
+    elif operation == 3:
+        finalOperation = "Multiplication"
+    elif operation == 4:
+        finalOperation = "Division"
+
+
+
+    # These lists are to make it easier to change the random number ranges
+    # ***********ADDITION**************
+    additionLevel1 = [0, 10]
+    additionLevel2 = [10, 25]
+    additionLevel3 = [25, 100]
+    additionLevel4 = [100, 500]
+    additionLevel5 = [500, 1000]
+    # ***********SUBTRACTION***********
+    subtLevel1 = []
+    subtLevel2 = []
+    subtLevel3 = []
+    subtLevel4 = []
+    subtLevel5 = []
+    # ***********MULTIPLICATION********
+    multLevel1 = []
+    multLevel2= []
+    multLevel3 = []
+    multLevel4 = []
+    multLevel5 = []
+    # ***********DIVISION**************
+    divLevel1 = []
+    divLevel2 = []
+    divLevel3 = []
+    divLevel4 = []
+    divLevel5 = []
+
+
     # put ready message here
-    print(f"{operation} Game, Level {difficultyLevel}, {difficultyLevel} points per correct answer")
+    print(f"{finalOperation} Game, Level {difficultyLevel}, {difficultyLevel} points per correct answer")
     time.sleep(2)
     print("Starting in 5...")
     time.sleep(1)
@@ -56,10 +95,10 @@ def mathGame(operation, difficultyLevel):
             displayed15 = True
 
         # placeholder: user input() line will go here, to get their answer
-        if operation == "ADDITION":
+        if finalOperation == "Addition":
             if difficultyLevel == 1:
-                firstNum = random.randint(0, 10)
-                secondNum = random.randint(0, 10)
+                firstNum = random.randint(additionLevel1[0], additionLevel1[1])
+                secondNum = random.randint(additionLevel1[0], additionLevel1[1])
 
                 equation = firstNum + secondNum
                 print(f"{firstNum} + {secondNum}", end='')
@@ -85,7 +124,7 @@ def mathGame(operation, difficultyLevel):
             elif difficultyLevel == 5:
                 pass
         # put timer has expired check after user input line
-        elif operation == "SUBTRACTION":
+        elif finalOperation == "Subtraction":
             if difficultyLevel == 1:
                 pass
             elif difficultyLevel == 2:
@@ -96,7 +135,7 @@ def mathGame(operation, difficultyLevel):
                 pass
             elif difficultyLevel == 5:
                 pass
-        elif operation == "DIVISION":
+        elif finalOperation == "Multiplication":
             if difficultyLevel == 1:
                 pass
             elif difficultyLevel == 2:
@@ -107,7 +146,7 @@ def mathGame(operation, difficultyLevel):
                 pass
             elif difficultyLevel == 5:
                 pass
-        elif operation == "MULTIPLICATION":
+        elif finalOperation == "Division":
             if difficultyLevel == 1:
                 pass
             elif difficultyLevel == 2:
@@ -144,9 +183,10 @@ def mathGame(operation, difficultyLevel):
         print("Incorrect answers:")
         for x in wrongAnswers:
             print(x)
-    print(
-        f"Total score: {numCorrectAnswers}")  # score is the num of correct answers b/c points given is 1 per question for difficulty lvl 1
+    time.sleep(1.5)
+    print(f"Total score: {numCorrectAnswers}")  # score is the num of correct answers b/c points given is 1 per question for difficulty lvl 1
 
+    # todo add in checkers to evaluate actual score and return the score
     return numCorrectAnswers
 
 

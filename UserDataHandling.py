@@ -90,7 +90,7 @@ def DeleteUser(name):
     pass
 
 def GetUserData(name):
-    data = list(dictionary[name].values)
+    data = list(dictionary[name].values())
     return data
 
 def ScoreHandling(name, operation, score):
