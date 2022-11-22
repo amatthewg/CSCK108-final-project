@@ -1,5 +1,6 @@
 import TextGroup as txt
 import UserDataHandling as saveFile
+import GameMethods
 # Text Variable Declarations
 mainMenu = txt.mainMenu
 
@@ -14,8 +15,7 @@ else:
 
 
 
-
-saveFile.GenerateNewUser("paul")
+saveFile.ScoreHandling("john", "math", GameMethods.mathGame("addition", 1))
 
 
 if saveFile.CheckIfNameInDictionary("paul"):

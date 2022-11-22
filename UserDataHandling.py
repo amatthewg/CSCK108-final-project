@@ -94,7 +94,7 @@ def GetUserData(name):
     return data
 
 def ScoreHandling(name, operation, score):
-    pass
+    print("Correct score: ", score)
 
 
 startup()
