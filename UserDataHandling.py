@@ -66,7 +66,7 @@ def startup():
 
 
 def WriteToSaveFile(list):
-    with open('gamesavedata.csv', 'w') as f:
+    with open('gamesavedata.csv', 'a+') as f:
         writer = csv.writer(f)
 
         writer.writerow(list)
@@ -95,6 +95,12 @@ def GetUserData(name):
 
 def ScoreHandling(name, operation, score):
     print("Correct score: ", score)
+
+def ClearSaveData():
+    with open("gamesavedata.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+    startup()
 
 
 startup()
