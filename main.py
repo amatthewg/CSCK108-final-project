@@ -3,6 +3,4 @@ import UserDataHandling as saveFile
 import GameMethods
 
 
-saveFile.GenerateNewUser("paul")
-
-print(saveFile.GetUserData("paul")[0])
+saveFile.ScoreHandling("john", "addition", 20)

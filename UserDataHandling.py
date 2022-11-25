@@ -94,7 +94,50 @@ def GetUserData(name):
     return data
 
 def ScoreHandling(name, operation, score):
-    print("Correct score: ", score)
+    # scoreAddition
+    # scoreSubtraction
+    # scoreMultiplication
+    # scoreDivision
+    tempDictionary = dictionary.get(name)
+
+    if operation == "addition":
+        if tempDictionary.get("scoreAddition") == "None":
+            dictionary[name]["scoreAddition"] = score
+        elif int(tempDictionary.get("scoreAddition")) < score:
+            dictionary[name]["scoreAddition"] = score
+    if operation == "subtraction":
+        if tempDictionary.get("scoreSubtraction") == "None":
+            dictionary[name]["scoreSubtraction"] = score
+        elif tempDictionary.get("scoreSubtraction") < score:
+            dictionary[name]["scoreSubtraction"] = score
+    if operation == "multiplication":
+        if tempDictionary.get("scoreMultiplication") == "None":
+            dictionary[name]["scoreMultiplication"] = score
+        elif tempDictionary.get("scoreMultiplication") < score:
+            dictionary[name]["scoreMultiplication"] = score
+    if operation == "division":
+        if tempDictionary.get("scoreDivision") == "None":
+            dictionary[name]["scoreDivision"] = score
+        elif tempDictionary.get("scoreDivision") < score:
+            dictionary[name]["scoreDivision"] = score
+
+    with open("gamesavedata.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(header)
+
+        for key in dictionary:
+            scoreAddition = dictionary.get(key).get("scoreAddition")
+            scoreSubtraction = dictionary.get(key).get("scoreSubtraction")
+            scoreMultiplication = dictionary.get(key).get("scoreMultiplication")
+            scoreDivision = dictionary.get(key).get("scoreDivision")
+
+            row = [key, scoreAddition, scoreSubtraction, scoreMultiplication, scoreDivision]
+
+            writer.writerow(row)
+
+    startup()
+
+
 
 def ClearSaveData():
     with open("gamesavedata.csv", "w") as f:
