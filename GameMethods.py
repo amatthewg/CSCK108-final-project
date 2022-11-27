@@ -89,7 +89,6 @@ def mathGame(operation, difficultyLevel):
         elif time.time() >= warning30 and not displayed30:
             print("30 seconds remaining...")
             displayed30 = True
-
         elif time.time() >= warning15 and not displayed15:
             print("15 seconds remaining...")
             displayed15 = True
@@ -99,30 +98,32 @@ def mathGame(operation, difficultyLevel):
             if difficultyLevel == 1:
                 firstNum = random.randint(additionLevel1[0], additionLevel1[1])
                 secondNum = random.randint(additionLevel1[0], additionLevel1[1])
-
-                equation = firstNum + secondNum
-                print(f"{firstNum} + {secondNum}", end='')
-                userAnswer = input()
-                try:
-                    userAnswer = int(userAnswer)
-                except:
-                    pass
-                equation = int(equation)
-                if userAnswer == int(equation):
-                    numCorrectAnswers += 1
-
-                else:
-                    sentence = f"{firstNum} + {secondNum} equals {equation}, not {userAnswer}"
-                    wrongAnswers.append(sentence)
-
             elif difficultyLevel == 2:
-                pass
+                firstNum = random.randint(additionLevel2[0], additionLevel2[1])
+                secondNum = random.randint(additionLevel2[0], additionLevel2[1])
             elif difficultyLevel == 3:
-                pass
+                firstNum = random.randint(additionLevel3[0], additionLevel3[1])
+                secondNum = random.randint(additionLevel3[0], additionLevel3[1])
             elif difficultyLevel == 4:
-                pass
+                firstNum = random.randint(additionLevel4[0], additionLevel4[1])
+                secondNum = random.randint(additionLevel4[0], additionLevel4[1])
             elif difficultyLevel == 5:
+                firstNum = random.randint(additionLevel5[0], additionLevel5[1])
+                secondNum = random.randint(additionLevel5[0], additionLevel5[1])
+            equation = firstNum + secondNum
+            print(f"{firstNum} + {secondNum}", end='')
+            userAnswer = input()
+            try:
+                userAnswer = int(userAnswer)
+            except:
                 pass
+            equation = int(equation)
+            if userAnswer == int(equation):
+                numCorrectAnswers += 1
+
+            else:
+                sentence = f"{firstNum} + {secondNum} equals {equation}, not {userAnswer}"
+                wrongAnswers.append(sentence)
         # put timer has expired check after user input line
         elif finalOperation == "Subtraction":
             if difficultyLevel == 1:

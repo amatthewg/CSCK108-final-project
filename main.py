@@ -1,6 +1,8 @@
 import TextGroup as txt
 import UserDataHandling as saveFile
 import GameMethods
+import time
 
 
-saveFile.ScoreHandling("john", "addition", 20)
+
+GameMethods.mathGame(1, 1)

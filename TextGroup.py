@@ -1,4 +1,4 @@
-import time
+
 # Grouping of texts
 
 mainMenu = "Main Menu:\n" \

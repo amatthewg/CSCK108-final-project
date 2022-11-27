@@ -1,5 +1,6 @@
 import csv
 import os
+import time
 
 # This file will be used to store/access user save data to a CSV file
 #
@@ -65,14 +66,6 @@ def startup():
             }
 
 
-def WriteToSaveFile(list):
-    with open('gamesavedata.csv', 'a+') as f:
-        writer = csv.writer(f)
-
-        writer.writerow(list)
-    startup()
-
-
 def CheckIfNameInDictionary(name):
     names = list(dictionary.keys())
     try:
@@ -84,7 +77,9 @@ def CheckIfNameInDictionary(name):
 
 def GenerateNewUser(name):
     data = [name, "None", "None", "None", "None"]
-    WriteToSaveFile(data)
+    with open("gamesavedata.csv", "a") as f:
+        writer = csv.writer(f)
+        writer.writerow(data)
 
 def DeleteUser(name):
     pass
@@ -99,7 +94,10 @@ def ScoreHandling(name, operation, score):
     # scoreMultiplication
     # scoreDivision
     tempDictionary = dictionary.get(name)
-
+    print("DEBUG: Printing tempDictionary...")
+    time.sleep(1)
+    print(tempDictionary)
+    time.sleep(5)
     if operation == "addition":
         if tempDictionary.get("scoreAddition") == "None":
             dictionary[name]["scoreAddition"] = score
@@ -108,23 +106,23 @@ def ScoreHandling(name, operation, score):
     if operation == "subtraction":
         if tempDictionary.get("scoreSubtraction") == "None":
             dictionary[name]["scoreSubtraction"] = score
-        elif tempDictionary.get("scoreSubtraction") < score:
+        elif int(tempDictionary.get("scoreSubtraction")) < score:
             dictionary[name]["scoreSubtraction"] = score
     if operation == "multiplication":
         if tempDictionary.get("scoreMultiplication") == "None":
             dictionary[name]["scoreMultiplication"] = score
-        elif tempDictionary.get("scoreMultiplication") < score:
+        elif int(tempDictionary.get("scoreMultiplication")) < score:
             dictionary[name]["scoreMultiplication"] = score
     if operation == "division":
         if tempDictionary.get("scoreDivision") == "None":
             dictionary[name]["scoreDivision"] = score
-        elif tempDictionary.get("scoreDivision") < score:
+        elif int(tempDictionary.get("scoreDivision")) < score:
             dictionary[name]["scoreDivision"] = score
 
     with open("gamesavedata.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(header)
-
+        print("DEBUG: Opening save file to overwrite for ScoreHandling...")
         for key in dictionary:
             scoreAddition = dictionary.get(key).get("scoreAddition")
             scoreSubtraction = dictionary.get(key).get("scoreSubtraction")
@@ -134,7 +132,7 @@ def ScoreHandling(name, operation, score):
             row = [key, scoreAddition, scoreSubtraction, scoreMultiplication, scoreDivision]
 
             writer.writerow(row)
-
+    print("DEBUG: Finished overwriting, calling startup...")
     startup()
 
 
