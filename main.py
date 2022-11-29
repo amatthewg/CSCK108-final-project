@@ -1,8 +1,8 @@
 import TextGroup as txt
 import UserDataHandling as saveFile
-import GameMethods
+import GameMethod
 import time
 
 
 
-GameMethods.mathGame(1, 1)
+GameMethod.mathGame(4, 5)
