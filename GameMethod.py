@@ -44,11 +44,13 @@ def mathGame(operation, difficultyLevel):
     multLevel4 = [100, 500]
     multLevel5 = [500, 1000]
     # ***********DIVISION**************
-    divLevel1 = [0, 10]
-    divLevel2 = [10, 25]
-    divLevel3 = [25, 100]
-    divLevel4 = [100, 500]
-    divLevel5 = [500, 1000]
+    # Division here is a bit different because the random number generator can't reliably generate numbers that divide
+    # well, so I have to manually generate numbers to multiply and then display them as a division problem.
+    divLevel1 = [1, 10]
+    divLevel2 = [1, 20]
+    divLevel3 = [1, 30]
+    divLevel4 = [1, 40]
+    divLevel5 = [1, 50]
 
 
     # put ready message here
@@ -196,75 +198,37 @@ def mathGame(operation, difficultyLevel):
                 # First, generate two random numbers from set ranges
                 firstNum = random.randint(divLevel1[0], divLevel1[1])
                 secondNum = random.randint(divLevel1[0], divLevel1[1])
-
-                # Enter this loop which will evaluate the numbers to make sure they divide evenly,
-                # otherwise regenerate them
-                while True:
-                    if secondNum == 0 or firstNum % secondNum != 0:
-                        firstNum = random.randint(divLevel1[0], divLevel1[1])
-                        secondNum = random.randint(divLevel1[0], divLevel1[1])
-                        continue
-                    else:
-                        break
             elif difficultyLevel == 2:
                 firstNum = random.randint(divLevel2[0], divLevel2[1])
                 secondNum = random.randint(divLevel2[0], divLevel2[1])
 
-                while True:
-                    if secondNum == 0 or firstNum % secondNum != 0:
-                        firstNum = random.randint(divLevel2[0], divLevel2[1])
-                        secondNum = random.randint(divLevel2[0], divLevel2[1])
-                        continue
-                    else:
-                        break
             elif difficultyLevel == 3:
                 firstNum = random.randint(divLevel3[0], divLevel3[1])
                 secondNum = random.randint(divLevel3[0], divLevel3[1])
 
-                while True:
-                    if secondNum == 0 or firstNum % secondNum != 0:
-                        firstNum = random.randint(divLevel3[0], divLevel3[1])
-                        secondNum = random.randint(divLevel3[0], divLevel3[1])
-                        continue
-                    else:
-                        break
             elif difficultyLevel == 4:
                 firstNum = random.randint(divLevel4[0], divLevel4[1])
                 secondNum = random.randint(divLevel4[0], divLevel4[1])
 
-                while True:
-                    if secondNum == 0 or firstNum % secondNum != 0:
-                        firstNum = random.randint(divLevel4[0], divLevel4[1])
-                        secondNum = random.randint(divLevel4[0], divLevel4[1])
-                        continue
-                    else:
-                        break
             elif difficultyLevel == 5:
                 firstNum = random.randint(divLevel5[0], divLevel5[1])
                 secondNum = random.randint(divLevel5[0], divLevel5[1])
-                #fixme this doesn't work, always generates the same two numbers
-                while True:
-                    print(f"DEBUG first num: {firstNum}")
-                    print(f"DEBUG sec num: {secondNum}")
-                    if secondNum == 0 or firstNum % secondNum != 0:
-                        firstNum = random.randint(divLevel5[0], divLevel5[1])
-                        secondNum = random.randint(divLevel5[0], divLevel5[1])
-                        continue
-                    else:
-                        break
-            equation = firstNum / secondNum
+
+            firstEquation = firstNum * secondNum
+
+            equation = firstEquation
             equation = int(equation)
-            print(f"{firstNum} / {secondNum}", end='')
+            print(f"{firstEquation} / {secondNum}", end='')
             userAnswer = input()
             try:
                 userAnswer = int(userAnswer)
             except:
                 pass
-            if userAnswer == equation:
+            if userAnswer == firstNum:
                 numCorrectAnswers += 1
 
             else:
-                sentence = f"{firstNum} / {secondNum} equals {equation}, not {userAnswer}"
+                sentence = f"{firstEquation} / {secondNum} equals {equation}, not {userAnswer}"
                 wrongAnswers.append(sentence)
         if int(time.time()) > endTime:
             time.sleep(1.5)  # adding in these sleep calls to make the outputs more readable for the user
@@ -293,9 +257,9 @@ def mathGame(operation, difficultyLevel):
         for x in wrongAnswers:
             print(x)
     time.sleep(1.5)
-    print(f"Total score: {numCorrectAnswers}")  # score is the num of correct answers b/c points given is 1 per question for difficulty lvl 1
+    print(f"Total score: {numCorrectAnswers * difficultyLevel}")
 
-    # todo add in checkers to evaluate actual score and return the score
-    return numCorrectAnswers
+
+    return numCorrectAnswers * difficultyLevel
 
 

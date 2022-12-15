@@ -2,10 +2,9 @@
 # Grouping of texts
 
 mainMenu = "Main Menu:\n" \
-           "(1) Option one\n" \
-           "(2) Option two\n" \
-           "(3) Option three\n" \
-           "(4) Option four\n"\
+           "(1) Play math game\n" \
+           "(2) Review your scores\n" \
+           "(3) Quit\n" \
            "Enter number option: "
 
 operationsMenu = "Choose the operation to play:\n" \
@@ -15,7 +14,13 @@ operationsMenu = "Choose the operation to play:\n" \
                  "(4) Division\n" \
                  "Enter number option: "
 
-difficultyLevelPrompt = "Input your difficulty level (1-5):"
+difficultyLevelPrompt = "Choose your difficulty level:\n"\
+                        "(1) Difficulty level one\n" \
+                        "(2) Difficulty level two\n" \
+                        "(3) Difficulty level three\n" \
+                        "(4) Difficulty level four\n" \
+                        "(5) Difficulty level five\n" \
+                        "Enter number option: "
 
 
 
