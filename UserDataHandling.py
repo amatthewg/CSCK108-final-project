@@ -18,15 +18,13 @@ If the user has already run the program on their machine, the program will
 will not overwrite it and make a new one. 
 """
 
-
-
-
 # This is the header variable that is automatically written to the new file if it is generated.
 header = ["name", "best_score_addition", "best_score_subtraction",
           "best_score_multiplication", "best_score_division"]
 
 # Initialize an empty dictionary to store user data during runtime
 dictionary = {}
+
 
 # This is the startup method, which is not only called at the start of runtime,
 # but also multiple times during runtime, as it is the method that actually
@@ -66,6 +64,7 @@ def startup():
                 "scoreDivision": divScore
             }
 
+
 # Method to check if a username is already in the dictionary.
 # This method is called at the beginning of the program when
 # the user enters their name to see if they have played before.
@@ -77,6 +76,7 @@ def CheckIfNameInDictionary(name):
         return False
     return True
 
+
 # This method generates a new user and writes it the CSV file.
 # This method is called at the beginning of runtime if a username
 # does not exist when the user enters their name.
@@ -86,6 +86,7 @@ def GenerateNewUser(name):
         writer = csv.writer(f)
         writer.writerow(data)
 
+
 # Simple method that returns a list of user data by accessing the dictionary and using
 # the username as a key.
 def GetUserData(name):
@@ -93,11 +94,11 @@ def GetUserData(name):
     data = list(dictionary[name].values())
     return data
 
+
 # Here's the beast...
 # When calling this method, we need three arguments: the username, the math operation,
 # and the user's score.
 def ScoreHandling(name, operation, score):
-
     # Here, we declare a temporary dictionary and access the nested dictionary and
     # put it in this new one. This is for ease of access, mainly so that I didn't have
     # to type things like dictionary.get(name).get("something"), which would get
@@ -112,7 +113,8 @@ def ScoreHandling(name, operation, score):
     # automatically write whatever score was passed in, as there is no score.
 
     # Otherwise, if there already is a score value there, we check to see
-    # if
+    # if the score passed as an argument is greater than the score already there.
+    # If it is, overwrite the previous score with the new one.
     if operation == 1:
         if tempDictionary.get("scoreAddition") == "None":
             dictionary[name]["scoreAddition"] = score
@@ -134,6 +136,8 @@ def ScoreHandling(name, operation, score):
         elif int(tempDictionary.get("scoreDivision")) < score:
             dictionary[name]["scoreDivision"] = score
 
+    # Once we have checked the user score, we can open the save file and
+    # write to it accordingly.
     with open("gamesavedata.csv", "w") as f:
         writer = csv.writer(f)
         writer.writerow(header)
@@ -151,7 +155,7 @@ def ScoreHandling(name, operation, score):
     startup()
 
 
-
+# Simple method to clear all save data.
 def ClearSaveData():
     with open("gamesavedata.csv", "w") as f:
         writer = csv.writer(f)
@@ -159,4 +163,5 @@ def ClearSaveData():
     startup()
 
 
+# Call the startup method, this is called at the start of runtime
 startup()

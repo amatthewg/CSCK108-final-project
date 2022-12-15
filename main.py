@@ -2,6 +2,7 @@ import TextGroup as txt
 import UserDataHandling as saveFile
 import GameMethod
 import time
+import random
 
 # Aiden Grimsey
 # CSC K 108
@@ -23,12 +24,12 @@ else:
     saveFile.GenerateNewUser(userName)
     time.sleep(1.5)
 
-
 # Declare text variables from text file
 
 mainMenu = txt.mainMenu
 operationsMenu = txt.operationsMenu
 difficultyPrompt = txt.difficultyLevelPrompt
+
 
 # Method to display startup menu
 
@@ -36,10 +37,15 @@ def displayStartMenu():
     print(mainMenu)
 
     # Get user input, reject if invalid
+    # You'll see these loops all throughout the main file.
+    # These are used to check to see not only if the user enters
+    # a wrong menu number, but also to check and see if they enter
+    # something like a word or letter, so that it doesn't throw a ValueError and
+    # crash the program.
     while True:
         try:
             firstChoice = int(input())
-            if firstChoice > 3 or firstChoice < 1:
+            if firstChoice > 4 or firstChoice < 1:
                 print("Not a valid choice!")
                 time.sleep(1.5)
                 continue
@@ -78,11 +84,18 @@ def displayStartMenu():
                 continue
             else:
                 break
+        # This line below is actually running everything. We first call the ScoreHandling method, and we pass
+        # multiple arguments to it. ScoreHandling needs three arguments: the username, the math operation,
+        # and the user's score. So, we pass in userName, the math operation, and then we pass in a function as an
+        # argument. We pass the mathGame method as an argument, because that method will ultimately return the user's
+        # score. Once the mathGame method is complete and returns the score, everything goes over to the ScoreHandling
+        # method, which handles everything accordingly.
         saveFile.ScoreHandling(userName, secondChoice, GameMethod.mathGame(secondChoice, difficultyChoice))
         displayStartMenu()
-    if firstChoice == 2:
+    elif firstChoice == 2:
         print("Getting your scores...")
         time.sleep(1.5)
+        # Retrieve the user's scores and display them
         userData = saveFile.GetUserData(userName)
 
         print(f"Addition score: {userData[0]}")
@@ -91,11 +104,37 @@ def displayStartMenu():
         print(f"Division score: {userData[3]}")
         time.sleep(1.5)
         displayStartMenu()
-    if firstChoice == 3:
+    elif firstChoice == 3:
+        # Quit the program
         print("Thanks for playing!")
         time.sleep(2)
         quit()
-    if firstChoice > 3:
+    elif firstChoice == 4:
+        # This is the choice to clear all save data.
+        # As a precaution, we generate a random number and ask the user to type it in
+        # to avoid any accidental clearings of the save data.
+        num = random.randint(5000, 100000)
+        print("WARNING: You have chosen to clear all save data.")
+        print("To continue, enter the following number. Otherwise, enter anything else:")
+        print(num)
+
+        while True:
+            try:
+                userNum = int(input())
+            except:
+                displayStartMenu()
+            else:
+                break
+        if userNum == num:
+            saveFile.ClearSaveData()
+            print("Program must terminate when the save file is cleared.")
+            time.sleep(1.5)
+            quit()
+        else:
+            print("Incorrect number entered. Returning to main menu...")
+            time.sleep(1.5)
+            displayStartMenu()
+    elif firstChoice > 4:
         print("Not a valid choice!")
         time.sleep(1.5)
         displayStartMenu()

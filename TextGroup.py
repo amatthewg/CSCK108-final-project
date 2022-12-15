@@ -5,6 +5,7 @@ mainMenu = "Main Menu:\n" \
            "(1) Play math game\n" \
            "(2) Review your scores\n" \
            "(3) Quit\n" \
+           "(4) Clear all save data\n" \
            "Enter number option: "
 
 operationsMenu = "Choose the operation to play:\n" \
