@@ -2,35 +2,36 @@ import csv
 import os
 import time
 
-# This file will be used to store/access user save data to a CSV file
-#
-# gamesavedata.csv will not be a file on github, will automatically generate when user runs
-# the script on their machine
-
-
-# generate save file with default headers
-
 """
-We need methods for the following:
-When user chooses to save session data,
-    1. Write their data to the save file, then
-    2. Generate new saveData dictionary from that file
-So, make one method for saving data
+This is the file that will be used to store all the methods pertaining to storing/accessing
+user save data.
 
-ReadFromSaveFile will still run like normal, will automatically generate 
-dictionary when program starts.
+Arguably the most important method here is the ScoreHandling method, as it is the method
+that handles all the user scores for the various operation games. 
 
-The save session data method will just overwrite that dictionary
-with the more up-to-date data.
+If the user runs the program on their machine for the first time, the program
+will (should, hopefully) generate a CSV save file in the same directory as the 
+rest of the files. 
 
-So, just make a dedicated method to generate a dictionary from the data file.
+If the user has already run the program on their machine, the program will
+(should, hopefully) detect that the CSV file has already been generated and
+will not overwrite it and make a new one. 
 """
+
+
+
+
+# This is the header variable that is automatically written to the new file if it is generated.
 header = ["name", "best_score_addition", "best_score_subtraction",
           "best_score_multiplication", "best_score_division"]
 
+# Initialize an empty dictionary to store user data during runtime
 dictionary = {}
 
-# startup logic for save file
+# This is the startup method, which is not only called at the start of runtime,
+# but also multiple times during runtime, as it is the method that actually
+# accesses the CSV save file and translates it to the above dictionary for
+# easy access during runtime.
 def startup():
     # this portion generates save file if it doesn't already exist
     if os.path.isfile("gamesavedata.csv"):
@@ -57,7 +58,7 @@ def startup():
                 divScore = row[4]
             except IndexError:
                 continue
-
+            # Declare new nested dictionary names from the CSV file
             dictionary[name] = {
                 "scoreAddition": addScore,
                 "scoreSubtraction": subtScore,
@@ -65,7 +66,9 @@ def startup():
                 "scoreDivision": divScore
             }
 
-
+# Method to check if a username is already in the dictionary.
+# This method is called at the beginning of the program when
+# the user enters their name to see if they have played before.
 def CheckIfNameInDictionary(name):
     names = list(dictionary.keys())
     try:
@@ -74,24 +77,42 @@ def CheckIfNameInDictionary(name):
         return False
     return True
 
-
+# This method generates a new user and writes it the CSV file.
+# This method is called at the beginning of runtime if a username
+# does not exist when the user enters their name.
 def GenerateNewUser(name):
     data = [name, "None", "None", "None", "None"]
     with open("gamesavedata.csv", "a") as f:
         writer = csv.writer(f)
         writer.writerow(data)
 
+# Simple method that returns a list of user data by accessing the dictionary and using
+# the username as a key.
 def GetUserData(name):
     startup()
     data = list(dictionary[name].values())
     return data
 
+# Here's the beast...
+# When calling this method, we need three arguments: the username, the math operation,
+# and the user's score.
 def ScoreHandling(name, operation, score):
-    # scoreAddition
-    # scoreSubtraction
-    # scoreMultiplication
-    # scoreDivision
+
+    # Here, we declare a temporary dictionary and access the nested dictionary and
+    # put it in this new one. This is for ease of access, mainly so that I didn't have
+    # to type things like dictionary.get(name).get("something"), which would get
+    # very complicated quickly. It was a lot easier to use this tempDictionary to
+    # access that information.
     tempDictionary = dictionary.get(name)
+
+    # Here's the actual "score handling" aspect of the method.
+    # Here, we first check to see what operation was passed as an argument.
+    # Then, in each branch, we first check to see if a value of "None" is in
+    # the place of the score. If the value is "None," that means we can
+    # automatically write whatever score was passed in, as there is no score.
+
+    # Otherwise, if there already is a score value there, we check to see
+    # if
     if operation == 1:
         if tempDictionary.get("scoreAddition") == "None":
             dictionary[name]["scoreAddition"] = score
